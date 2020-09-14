@@ -1,0 +1,84 @@
+object Form4: TForm4
+  Left = 0
+  Top = 0
+  Caption = 'Conversiones'
+  ClientHeight = 497
+  ClientWidth = 734
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object TabControl1: TTabControl
+    Left = 0
+    Top = 40
+    Width = 737
+    Height = 457
+    TabOrder = 0
+    object PageControl1: TPageControl
+      Left = 0
+      Top = 0
+      Width = 737
+      Height = 457
+      ActivePage = TabSheet1
+      TabOrder = 0
+      object TabSheet1: TTabSheet
+        Caption = 'Longitud'
+        ExplicitLeft = 0
+      end
+      object TabSheet2: TTabSheet
+        Caption = #193'rea'
+        ImageIndex = 1
+        ExplicitLeft = 8
+      end
+      object TabSheet3: TTabSheet
+        Caption = 'Volumen'
+        ImageIndex = 2
+      end
+      object TabSheet4: TTabSheet
+        Caption = 'Masa'
+        ImageIndex = 3
+      end
+      object TabSheet5: TTabSheet
+        Caption = 'Fuerza'
+        ImageIndex = 4
+      end
+      object TabSheet6: TTabSheet
+        Caption = 'Tiempo'
+        ImageIndex = 5
+      end
+      object TabSheet7: TTabSheet
+        Caption = #193'ngulo'
+        ImageIndex = 6
+        ExplicitLeft = 8
+      end
+      object TabSheet8: TTabSheet
+        Caption = 'Rapidez'
+        ImageIndex = 7
+        ExplicitLeft = 8
+      end
+      object TabSheet9: TTabSheet
+        Caption = 'Aceleraci'#243'n'
+        ImageIndex = 8
+        ExplicitLeft = 8
+      end
+      object TabSheet10: TTabSheet
+        Caption = 'Masa'
+        ImageIndex = 9
+      end
+      object TabSheet11: TTabSheet
+        Caption = 'Energ'#237'a'
+        ImageIndex = 10
+      end
+      object TabSheet12: TTabSheet
+        Caption = 'Presi'#243'n'
+        ImageIndex = 11
+        ExplicitLeft = 8
+      end
+    end
+  end
+end

@@ -1,0 +1,161 @@
+unit chopris;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ComCtrls, StdCtrls;
+
+type
+  TForm4 = class(TForm)
+    TabControl1: TTabControl;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
+    TabSheet4: TTabSheet;
+    TabSheet5: TTabSheet;
+    TabSheet6: TTabSheet;
+    TabSheet7: TTabSheet;
+    TabSheet8: TTabSheet;
+    TabSheet9: TTabSheet;
+    TabSheet10: TTabSheet;
+    TabSheet11: TTabSheet;
+    TabSheet12: TTabSheet;
+    Edit1: TEdit;
+    Label1: TLabel;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    Edit7: TEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Button1: TButton;
+    Button2: TButton;
+    Edit8: TEdit;
+    Label8: TLabel;
+    Edit9: TEdit;
+    Label9: TLabel;
+    Edit10: TEdit;
+    Label10: TLabel;
+    Edit11: TEdit;
+    Edit12: TEdit;
+    Edit13: TEdit;
+    Edit14: TEdit;
+    Edit15: TEdit;
+    Edit16: TEdit;
+    Edit17: TEdit;
+    Edit18: TEdit;
+    Edit19: TEdit;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    Label16: TLabel;
+    Label17: TLabel;
+    Label18: TLabel;
+    Label19: TLabel;
+    Edit20: TEdit;
+    Label20: TLabel;
+    Button3: TButton;
+    Button4: TButton;
+    Edit21: TEdit;
+    Edit22: TEdit;
+    Edit23: TEdit;
+    Edit24: TEdit;
+    Edit25: TEdit;
+    Edit26: TEdit;
+    Edit27: TEdit;
+    Label21: TLabel;
+    Label22: TLabel;
+    Label23: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
+    Label26: TLabel;
+    Label27: TLabel;
+    Button5: TButton;
+    Button6: TButton;
+    Edit28: TEdit;
+    Edit29: TEdit;
+    Edit30: TEdit;
+    Edit31: TEdit;
+    Edit32: TEdit;
+    Edit33: TEdit;
+    Edit34: TEdit;
+    Label28: TLabel;
+    Label29: TLabel;
+    Label30: TLabel;
+    Label31: TLabel;
+    Label32: TLabel;
+    Label33: TLabel;
+    Label34: TLabel;
+    Button7: TButton;
+    Button8: TButton;
+    Edit35: TEdit;
+    Edit36: TEdit;
+    Label35: TLabel;
+    Label36: TLabel;
+    Button9: TButton;
+    Button10: TButton;
+    Edit37: TEdit;
+    Edit38: TEdit;
+    Edit39: TEdit;
+    Edit40: TEdit;
+    Edit41: TEdit;
+    Label37: TLabel;
+    Label38: TLabel;
+    Label39: TLabel;
+    Label40: TLabel;
+    Label41: TLabel;
+    Button11: TButton;
+    Button12: TButton;
+    Edit42: TEdit;
+    Edit43: TEdit;
+    Edit44: TEdit;
+    Edit45: TEdit;
+    Edit46: TEdit;
+    procedure Button1Click(Sender: TObject);
+    procedure Edit2Change(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form4: TForm4;
+  m:Real;
+  km,hm,dam:Real;
+  dm,cm,mm,yd,ft: Real;
+
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm4.Button1Click(Sender: TObject);
+begin
+m:= strtofloat (Edit1.Text);
+km:= m/1000;
+hm:= m/100;
+dam:= m/10;
+dm:= m/0.1;
+cm:= m/0.01;
+mm:= m/0.001;
+yd:= m*1.0936;
+ft:= m*3.2808;
+end;
+
+procedure TForm4.Edit2Change(Sender: TObject);
+begin
+edit2.text:= floattostr (km);
+end;
+
+end.

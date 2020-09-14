@@ -1,0 +1,160 @@
+object Form1: TForm1
+  Left = 390
+  Top = 0
+  BorderStyle = bsSizeToolWin
+  Caption = 'Tetris- Ruth Ard'#243'n Lechuga. C5E'
+  ClientHeight = 620
+  ClientWidth = 620
+  Color = clGradientInactiveCaption
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Menu = MainMenu1
+  OldCreateOrder = False
+  Position = poDesigned
+  OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
+  OnKeyUp = FormKeyUp
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Image1: TImage
+    Left = 8
+    Top = 8
+    Width = 270
+    Height = 600
+  end
+  object Shape1: TShape
+    Left = 300
+    Top = -32
+    Width = 13
+    Height = 657
+    Brush.Color = clHighlight
+  end
+  object Label1: TLabel
+    Left = 371
+    Top = 232
+    Width = 199
+    Height = 60
+    Caption = 'PUNTOS'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clNavy
+    Font.Height = -48
+    Font.Name = 'Fixedsys'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 388
+    Top = 400
+    Width = 166
+    Height = 60
+    Caption = 'NIVEL'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clNavy
+    Font.Height = -48
+    Font.Name = 'Fixedsys'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 366
+    Top = 298
+    Width = 199
+    Height = 60
+    Caption = '000000'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clRed
+    Font.Height = -48
+    Font.Name = 'Fixedsys'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 448
+    Top = 466
+    Width = 34
+    Height = 60
+    Caption = '1'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clRed
+    Font.Height = -48
+    Font.Name = 'Fixedsys'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Left = 344
+    Top = 16
+    Width = 226
+    Height = 45
+    Caption = 'SIGUIENTE'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clNavy
+    Font.Height = -44
+    Font.Name = 'Fixedsys'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object StringGrid1: TStringGrid
+    Left = 576
+    Top = 56
+    Width = 202
+    Height = 529
+    ColCount = 9
+    DefaultColWidth = 20
+    DefaultRowHeight = 20
+    Enabled = False
+    FixedCols = 0
+    RowCount = 25
+    FixedRows = 0
+    TabOrder = 0
+    Visible = False
+  end
+  object StringGrid3: TStringGrid
+    Left = 388
+    Top = 67
+    Width = 155
+    Height = 121
+    BevelInner = bvNone
+    BorderStyle = bsNone
+    Color = clInfoText
+    DefaultColWidth = 30
+    Enabled = False
+    FixedColor = clBackground
+    FixedCols = 0
+    FixedRows = 0
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWhite
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    GradientEndColor = clWhite
+    GridLineWidth = 2
+    Options = []
+    ParentFont = False
+    TabOrder = 1
+    StyleElements = []
+    OnDrawCell = StringGrid3DrawCell
+  end
+  object MainMenu1: TMainMenu
+    Left = 520
+    Top = 528
+    object Empezar1: TMenuItem
+      Caption = 'Empezar'
+      OnClick = Empezar1Click
+    end
+    object Pausar1: TMenuItem
+      Caption = 'Pausar'
+      OnClick = Pausar1Click
+    end
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 400
+    OnTimer = Timer1Timer
+    Left = 520
+    Top = 576
+  end
+end

@@ -1,0 +1,171 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
+  Vcl.StdCtrls, System.DateUtils;
+
+type
+  TForm1 = class(TForm)
+    Image1: TImage;
+    Timer1: TTimer;
+    Timer2: TTimer;
+    Label1: TLabel;
+    procedure FormCreate(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure Timer2Timer(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+type
+  Ventana = Class
+    private
+      atencion: timage;
+      data: array[1..5] of timage;
+      sp: integer;
+      b: boolean;
+    public
+      constructor create(f: TForm1; x:integer);
+      procedure Click(t: TObject);
+      procedure Queue(e,imgp: string);
+      procedure Dequeue;
+  End;
+
+var
+  Form1: TForm1;
+  v1,v2,v3: Ventana;
+  s,m,h,n,i: integer;
+  personaje,imgp: string;
+const
+  ext = 'C:\Users\Ruth Lechuga\Desktop\Colas- Juego\imagenes\';
+
+implementation
+
+{$R *.dfm}
+
+    constructor Ventana.create(f: TForm1; x:integer);
+    begin
+       sp:=0;
+       atencion:= timage.Create(f);
+       atencion.parent:= f;
+       atencion.Left:= x;
+       atencion.top:= 120;
+       atencion.Width:= 115;
+       atencion.height:= 60;
+       atencion.Picture.loadfromfile(ext+'Ventana.png');
+       atencion.OnClick:= Click;
+    end;
+
+    procedure Perder;
+    begin
+      Showmessage('Has perdido');
+       with Form1 do
+        begin
+          timer1.Enabled:= false;
+          timer2.Enabled:= false;
+        end;
+    end;
+
+   procedure Mover(cliente,atencion:timage;imgp:string;sp:integer);
+    begin
+      while cliente.Top > 474 do
+         begin
+            Application.ProcessMessages;
+            sleep(10);
+            cliente.top:=cliente.top-3;
+         end;
+      cliente.Picture.LoadFromFile(ext+imgp+'-'+imgp+'.png');
+      while cliente.left-20 > atencion.Left do
+         begin
+             Application.ProcessMessages;
+             sleep(10);
+             cliente.left:=cliente.left-3;
+         end;
+      cliente.Picture.LoadFromFile(ext+imgp+'.png');
+      while cliente.top > (atencion.Top+atencion.Height+30+(sp-1)*70) do
+        begin
+            Application.ProcessMessages;
+            sleep(10);
+            cliente.Top:=cliente.top-3;
+        end;
+    end;
+
+    procedure Ventana.Queue(e,imgp: string);
+    begin
+       if (sp < 5) then
+          begin
+            inc(sp);
+            data[sp]:= timage.Create(Form1);
+            data[sp].Parent:= form1;
+            data[sp].Width:= 50;
+            data[sp].Height:= 50;
+            data[sp].Top:= 530;
+            data[sp].Left:= 710;
+            data[sp].Picture.LoadFromFile(e);
+            b:= false;
+            Mover(data[sp],atencion,imgp,sp);
+            b:= true;
+          end
+           else
+              Perder;
+    end;
+
+    procedure Ventana.Dequeue;
+    begin
+        if (sp > 0) and b then
+           begin
+             data[1].Destroy;
+             sp:= sp-1;
+            for i:=1 to sp do
+             begin
+              data[i]:= data[i+1];
+               while data[i].Top > (atencion.Top+atencion.Height+30+(i-1)*70) do
+                 begin
+                  Application.ProcessMessages;
+                  sleep(10);
+                  data[i].Top:=data[i].top-3;
+               end;
+             end;
+           end;
+    end;
+
+    procedure Ventana.Click(t: TObject);
+    begin
+       Dequeue;
+    end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+     v1:= Ventana.create(form1,250);
+     v2:= Ventana.create(form1,450);
+     v3:= Ventana.create(form1,650);
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+    inc(s);
+    if (s mod 15=0) then
+       timer2.Interval := timer2.Interval div 2;
+
+    label1.Caption:= 'Tiempo '+inttostr(s)+'seg';
+end;
+
+procedure TForm1.Timer2Timer(Sender: TObject);
+begin
+   n:= random(9)+1;
+   imgp:= inttostr(random(4)+1);
+   personaje:= ext + imgp + '.png';
+
+   case n of
+     1: v1.Queue(personaje,imgp);
+     2: v2.Queue(personaje,imgp);
+     3: v3.Queue(personaje,imgp);
+   end;
+end;
+
+end.

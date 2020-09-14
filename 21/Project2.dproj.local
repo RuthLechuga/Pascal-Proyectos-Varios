@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2014/09/08 10:04:36.000.845,=C:\Users\Ruth Lechuga\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2015/03/05 10:40:12.000.009,=C:\Users\Ruth Lechuga\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2015/03/05 10:49:31.000.515,=C:\Users\Ruth Lechuga\Documents\RAD Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2015/03/05 10:53:45.000.559,C:\Users\Ruth Lechuga\Documents\RAD Studio\Projects\Unit2.pas=C:\Users\Ruth Lechuga\Desktop\21\Unit2.pas</Transaction>
+    <Transaction>2015/03/05 10:53:45.000.559,C:\Users\Ruth Lechuga\Documents\RAD Studio\Projects\Unit2.dfm=C:\Users\Ruth Lechuga\Desktop\21\Unit2.dfm</Transaction>
+    <Transaction>2015/03/05 10:54:06.000.161,C:\Users\Ruth Lechuga\Documents\RAD Studio\Projects\Unit1.pas=C:\Users\Ruth Lechuga\Desktop\21\Unit1.pas</Transaction>
+    <Transaction>2015/03/05 10:54:06.000.161,C:\Users\Ruth Lechuga\Documents\RAD Studio\Projects\Unit1.dfm=C:\Users\Ruth Lechuga\Desktop\21\Unit1.dfm</Transaction>
+    <Transaction>2015/03/05 10:56:40.000.720,C:\Users\Ruth Lechuga\Documents\RAD Studio\Projects\Project2.dproj=C:\Users\Ruth Lechuga\Desktop\21\Project2.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

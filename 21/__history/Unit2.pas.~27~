@@ -1,0 +1,449 @@
+unit Unit2;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, pngimage, jpeg;
+
+type
+  TForm2 = class(TForm)
+    Label1: TLabel;
+    Image1: TImage;
+    Button1: TButton;
+    Memo1: TMemo;
+    Label2: TLabel;
+    Label3: TLabel;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Edit1: TEdit;
+    Label4: TLabel;
+    Edit2: TEdit;
+    Label5: TLabel;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    Image6: TImage;
+    procedure Label1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Image3Click(Sender: TObject);
+    procedure Image4Click(Sender: TObject);
+    procedure Image5Click(Sender: TObject);
+    procedure Image6Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+  vcartas: Array [1..102] of string;
+  num,tipo,i,cont,ac,sp,numc,p,c,j:integer;
+  resj1,resc,monto,apuesta: integer;
+  ext,tce,b: string;
+  baz,b2,b3: boolean;
+
+  cartas: array[1..102] of timage;
+
+const
+  a= 'C:\Users\Ruth Lechuga\Desktop\21\Cartas\';
+
+implementation
+
+{$R *.dfm}
+
+   procedure makenull;
+     begin
+      sp:= 1;
+    end;
+
+ procedure push(e:string);
+   begin
+       vcartas[sp]:= e;
+       inc(sp);
+   end;
+
+  function popi:string;
+   begin
+   if sp >= 1 then
+    begin
+      dec(sp);
+      popi:= vcartas[sp];
+    end
+      else
+       showmessage('Ya no hay más cartas');
+    end;
+
+   procedure baraja;
+   begin
+   makenull;
+    while i <= 102 do
+  begin
+     ac:= 1;
+     num:= random(12)+1;
+     tipo:= random(4)+1;
+       case tipo of
+         1: vcartas[i]:= inttostr(num) + 'c';
+         2: vcartas[i]:= inttostr(num) + 'd';
+         3: vcartas[i]:= inttostr(num) + 'e';
+         4: vcartas[i]:= inttostr(num) + 't';
+       end;
+          while cont <= i do
+           begin
+              if vcartas[cont] = vcartas[i] then
+                 ac:= ac+1;
+              inc(cont);
+           end;
+       if ac <= 2 then
+         i:= i+1;
+  end;
+  for i:=1 to 102 do
+   begin
+    form2.memo1.lines.add(vcartas[i]);
+    push(vcartas[i]);
+   end;
+   end;
+
+   function cespeciales(valor1,valor2,num: integer): integer;
+   begin
+     if b3 = true then
+      begin
+      if valor1>= 10 then
+           valor1:= 10;
+      end;
+
+      if valor2>= 10 then
+           valor2:= 10;
+       if (valor1 = 1) and (valor2 <> 1) then
+           valor1:= 11;
+      if (valor2 = 1) and (valor1 <> 1)  then
+           valor2:= 11;
+      if (valor1 = 11) and (valor2 = 1) then
+           begin
+             valor1:= 11;
+             valor2:= 1;
+           end;
+
+        cespeciales:= valor1+valor2;
+   end;
+
+   function cespeciales2(res,valor2: integer): integer;
+   begin
+     if valor2>= 10 then
+         valor2:= 10;
+     if  (valor2=1) and (res <=10) then
+          valor2:= 11;
+        cespeciales2:= valor2;
+   end;
+
+  function jugador1(resj1:integer):integer;
+  begin
+     b:= popi;
+     val(b,p,c);
+    if baz then
+     jugador1:=  cespeciales((resj1),(strtoint(copy(b,1,c-1))),num)
+       else
+        jugador1:=  resj1+ cespeciales2((resj1),strtoint(copy(b,1,c-1)));
+
+   b3:= false;
+   ext:= a+ b + '.jpg';
+   cartas[numc]:= timage.Create(form2);
+   cartas[numc].Parent:= form2;
+   cartas[numc].Width:= 73;
+   cartas[numc].Height:= 97;
+   cartas[numc].left:= 750;
+   cartas[numc].top:= 90;
+   cartas[numc].Picture.loadfromfile(a+'fd.jpg');
+
+      while (cartas[numc].Left > (396+((numc-1)*30))) do
+        begin
+           cartas[numc].Left:=cartas[numc].Left-10;
+           cartas[numc].top:=cartas[numc].top+7;
+           sleep(30);
+           application.ProcessMessages;
+        end;
+
+      while (cartas[numc].top < (350)) do
+        begin
+           cartas[numc].top:=cartas[numc].top+10;
+           sleep(30);
+           application.ProcessMessages;
+        end;
+   cartas[numc].Picture.loadfromfile(ext);
+   inc(numc);
+  end;
+
+  function maquina(resc:integer): integer;
+   begin
+     b:= popi;
+     val(b,p,c);
+         if baz then
+         maquina:= cespeciales((resc),(strtoint(copy(b,1,c-1))),0)
+           else
+             maquina:=  resc+ cespeciales2((resc),strtoint(copy(b,1,c-1)));
+
+     ext:= a+ b + '.jpg';
+
+   cartas[numc]:= timage.Create(form2);
+   cartas[numc].Parent:= form2;
+   cartas[numc].Width:= 73;
+   cartas[numc].Height:= 97;
+   cartas[numc].left:= 750;
+   cartas[numc].top:= 90;
+   cartas[numc].Picture.loadfromfile(a+'fd.jpg');
+
+   if i = 1 then
+    begin
+      while (cartas[numc].Left > (396+((numc-3)*30))) do
+        begin
+           cartas[numc].Left:=cartas[numc].Left-10;
+           sleep(40);
+           application.ProcessMessages;
+        end;
+   cartas[numc].Picture.loadfromfile(ext);
+    end;
+
+   if i = 2 then
+    begin
+      while (cartas[numc].Left > (396+((numc-3)*30))) do
+        begin
+           cartas[numc].Left:=cartas[numc].Left-10;
+           sleep(40);
+           application.ProcessMessages;
+        end;
+        tce:= b;
+        //showmessage(tce);
+    end;
+
+      while (cartas[numc].top < (160)) do
+        begin
+           cartas[numc].top:=cartas[numc].top+10;
+           sleep(40);
+           application.ProcessMessages;
+        end;
+   inc(numc);
+   end;
+
+   procedure ganar(nombre: string);
+   begin
+    cartas[4].Picture.loadfromfile(a+tce+'.jpg');
+    showmessage(nombre);
+      for i:=1 to numc-1 do
+       cartas[i].Visible:= false;
+    form2.label2.Visible:= false;
+    form2.label3.Visible:= false;
+    form2.button2.visible:= false;
+    form2.button3.visible:= false;
+    form2.button4.visible:= false;
+    form2.image3.Enabled:= true;
+    form2.image4.Enabled:= true;
+    form2.image5.Enabled:= true;
+    form2.image6.Enabled:= true;
+    resj1:= 0;
+    resc:= 0;
+    //showmessage(a+tce+'.jpg');
+   end;
+
+   procedure montomas;
+   begin
+    monto:= monto+ (apuesta*2);
+    form2.edit1.Text:= inttostr(monto);
+    form2.edit2.Text:= '';
+    apuesta:= 0;
+   end;
+
+   procedure montomenos;
+   begin
+    form2.edit2.Text:= '';
+    apuesta:= 0;
+      if (monto <= 0) then
+         begin
+            showmessage('Lo sentimos, te has quedado sin dinero');
+            application.Terminate;
+         end
+   end;
+
+   procedure monedas(valor: integer);
+    begin
+         if (monto-valor) < 0 then
+             showmessage('No tienes suficiente dinero')
+          else
+           begin
+             apuesta:= apuesta+valor;
+             monto:= monto-valor;
+             form2.edit1.Text:= inttostr(monto);
+             form2.edit2.Text:= inttostr(apuesta);
+             form2.button1.Enabled:= true;
+           end;
+    end;
+
+    procedure tresymedio;
+    begin
+      monto:= monto+apuesta;
+      apuesta:= (apuesta*3) div 2;
+      monto:= monto+apuesta;
+      form2.edit1.text:= inttostr(monto);
+      form2.edit2.text:= '';
+      apuesta:= 0;
+    end;
+
+
+procedure TForm2.Button1Click(Sender: TObject);
+begin
+image3.Enabled:= false;
+image4.Enabled:= false;
+image5.Enabled:= false;
+image6.Enabled:= false;
+numc:= 1;
+baraja;
+baz:= true;
+b3:= true;
+button1.Enabled:= false;
+
+   for i:=1 to 2 do
+    begin
+        resj1:= jugador1(resj1);
+        //showmessage(inttostr(resj1));
+    end;
+   label2.Caption:= inttostr(resj1);
+   label2.Visible:= true;
+
+   for i:=1 to 2 do
+        resc:= maquina(resc);
+   //showmessage(inttostr(resc));
+
+   //resj1:= 21;
+
+  if (resj1 = 21) and (resc <> 21) then
+   begin
+    ganar(label1.Caption + ' ¡Has ganado!');
+    tresymedio;
+   end
+      else
+       begin
+         button2.Visible:= true;
+         button3.Visible:= true;
+         button4.Visible:= true;
+         button4.Enabled:= true;
+       end;
+
+ //button1.visible:= false;
+end;
+
+procedure TForm2.Button2Click(Sender: TObject);
+begin
+baz:= false;
+resj1:= jugador1(resj1);
+label2.Caption:= inttostr(resj1);
+button4.Visible:= false;
+  if resj1 > 21 then
+      begin
+        ganar('La casa ha ganado');
+        montomenos;
+      end;
+  if resj1 = 21 then
+      begin
+        ganar(label1.Caption + ' ¡Has ganado!');
+        tresymedio;
+      end;
+end;
+
+procedure TForm2.Button3Click(Sender: TObject);
+begin
+//showmessage(inttostr(resc));
+cartas[4].Picture.loadfromfile(a+tce+'.jpg');
+baz:= false;
+b2:= true;
+i:= 1;
+   if (resc > resj1) and (resc <= 21) then
+    begin
+       form2.label3.Visible:= true;
+       form2.label3.Caption:= inttostr(resc);
+       ganar('La casa ha ganado');
+       montomenos;
+    end
+       else
+      begin
+       //showmessage(inttostr(resc));
+  while (resc <= 14) and b2 do
+     begin
+        resc:= maquina(resc);
+         if resc >= resj1 then
+           b2:= false;
+     end;
+    form2.label3.Visible:= true;
+    form2.label3.Caption:= inttostr(resc);
+
+     if (resc >= resj1) and (resc <=21) then
+      begin
+      ganar('La casa ha ganado');
+      montomenos;
+      end;
+     if (resj1 > resc) or (resc > 21) then
+      begin
+      ganar(label1.Caption + ' ¡Has ganado!');
+      montomas;
+      end;
+      end;
+end;
+
+procedure TForm2.Button4Click(Sender: TObject);
+begin
+if (monto-apuesta) > 0 then
+ begin
+monto:= monto-apuesta;
+apuesta:= apuesta*2;
+edit1.Text:= inttostr(monto);
+edit2.Text:=inttostr(apuesta);
+button4.Enabled:= false;
+ end
+   else
+   showmessage('No tienes suficiente dinero');
+end;
+
+procedure TForm2.FormCreate(Sender: TObject);
+begin
+makenull;
+numc:= 1;
+cont:= 1;
+ac:= 1;
+i:= 1;
+baz:= true;
+monto:= 1000;
+apuesta:= 0;
+b2:= true;
+ doublebuffered:= true;
+end;
+
+procedure TForm2.Image3Click(Sender: TObject);
+begin
+monedas(1);
+end;
+
+procedure TForm2.Image4Click(Sender: TObject);
+begin
+monedas(5);
+end;
+
+procedure TForm2.Image5Click(Sender: TObject);
+begin
+monedas(25);
+end;
+
+procedure TForm2.Image6Click(Sender: TObject);
+begin
+monedas(100);
+end;
+
+procedure TForm2.Label1Click(Sender: TObject);
+begin
+application.Terminate;
+end;
+
+end.

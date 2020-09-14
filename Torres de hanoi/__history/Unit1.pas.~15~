@@ -1,0 +1,244 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, Menus;
+
+type
+  TForm1 = class(TForm)
+    Memo1: TMemo;
+    MainMenu1: TMainMenu;
+    NmerodeDiscos1: TMenuItem;
+    N21: TMenuItem;
+    N31: TMenuItem;
+    N41: TMenuItem;
+    N51: TMenuItem;
+    N61: TMenuItem;
+    N71: TMenuItem;
+    N81: TMenuItem;
+    N91: TMenuItem;
+    N101: TMenuItem;
+    Rapidez1: TMenuItem;
+    Empezar1: TMenuItem;
+    Salir1: TMenuItem;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    procedure Salir1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure N21Click(Sender: TObject);
+    procedure N31Click(Sender: TObject);
+    procedure N41Click(Sender: TObject);
+    procedure N51Click(Sender: TObject);
+    procedure N61Click(Sender: TObject);
+    procedure N71Click(Sender: TObject);
+    procedure N81Click(Sender: TObject);
+    procedure N91Click(Sender: TObject);
+    procedure N101Click(Sender: TObject);
+    procedure Empezar1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+type
+  sps = class
+    s: tshape;
+    constructor create(f: TForm1; x,y,w:integer; color:Tcolor);
+    destructor Destroy; override;
+  end;
+
+type
+    torres = class
+    b,t: tshape;
+    constructor create(f: TForm1; x:integer);
+   end;
+
+
+var
+  Form1: TForm1;
+  cont,disc,i,temp: integer;
+  v1,v2,v3,st: array[1..10] of sps;
+  t1,t2,t3: torres;
+  sp: integer;
+
+implementation
+
+{$R *.dfm}
+   constructor sps.create(f: TForm1; x,y,w:integer; color:Tcolor);
+     begin
+       s:= tshape.create(f);
+       s.parent:= f;
+       s.Left:= x;
+       s.Top:= y;
+       s.Height:= 20;
+       s.Width:= w;
+       s.Brush.Color:= color;
+       s.Shape:= stroundrect;
+    end;
+
+    constructor torres.create(f: TForm1; x:integer);
+    begin
+       b:= tshape.Create(f);
+       t:= tshape.Create(f);
+       b.parent:= f;
+       t.parent:= f;
+       b.Left:= x;
+       t.left:= x+110;
+       b.top:= 342;
+       t.top:= 96;
+       b.Width:= 240;
+       b.Height:= 20;
+       t.Width:= 20;
+       t.Height:=254;
+       t.Brush.Color:= clblack;
+       b.Brush.Color:= clblack;
+       b.Shape:= stroundrect;
+       t.Shape:= stroundrect;
+    end;
+
+   destructor sps.Destroy;
+    begin
+     FreeAndNil(s);
+     inherited destroy;
+    end;
+
+      procedure makenull;
+       begin
+         sp:= 0;
+       end;
+
+       procedure push(e: sps);
+       begin
+         if (sp<10) then
+          begin
+            sp:= sp+1;
+            st[sp]:= e;
+          end
+           else
+           showmessage('OverFloat');
+       end;
+
+       function pop:sps;
+       begin
+         if (sp>0) then
+          begin
+            pop:= st[sp];
+            sp:= sp-1;
+          end
+           else
+           showmessage('UnderFloat');
+       end;
+
+    procedure discos(n: integer);
+     begin
+         for i:=1 to temp do
+          begin
+            v1[i].free;
+            makenull;
+          end;
+         for i:=1 to n do
+           begin
+             v1[i]:= sps.create(form1,32+i*10,342-i*20,240-i*20,random(16581375));
+             push(v1[i]);
+             temp:= n;
+           end;
+     end;
+
+     procedure pasar(p1,p3: torres);
+     begin
+     end;
+
+    procedure hanoi(n: integer;p1,p2,p3:torres);
+      begin
+       if (n=1) then
+       begin
+        pasar(p1,p3);
+        //form1.memo1.lines.add(inttostr(cont) + ' pasar de '+inttostr(p1)+' a '+inttostr(p3));
+        inc(cont);
+       end
+       else
+        begin
+         hanoi(n-1,p1,p3,p2);
+         hanoi(1,p1,p2,p3);
+         hanoi(n-1,p2,p1,p3);
+      end;
+    end;
+
+procedure TForm1.Empezar1Click(Sender: TObject);
+begin
+hanoi(disc,t1,t2,t3);
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+t1:=torres.create(form1,32);
+t2:=torres.create(form1,312);
+t3:=torres.create(form1,592);
+discos(10);
+disc:= 10;
+end;
+
+procedure TForm1.N101Click(Sender: TObject);
+begin
+discos(10);
+disc:= 10;
+end;
+
+procedure TForm1.N21Click(Sender: TObject);
+begin
+discos(2);
+disc:= 2;
+end;
+
+procedure TForm1.N31Click(Sender: TObject);
+begin
+discos(3);
+disc:= 3;
+end;
+
+procedure TForm1.N41Click(Sender: TObject);
+begin
+discos(4);
+disc:= 4;
+end;
+
+procedure TForm1.N51Click(Sender: TObject);
+begin
+discos(5);
+disc:= 5;
+end;
+
+procedure TForm1.N61Click(Sender: TObject);
+begin
+discos(6);
+disc:= 6;
+end;
+
+procedure TForm1.N71Click(Sender: TObject);
+begin
+discos(7);
+disc:= 7;
+end;
+
+procedure TForm1.N81Click(Sender: TObject);
+begin
+discos(8);
+disc:= 8;
+end;
+
+procedure TForm1.N91Click(Sender: TObject);
+begin
+discos(9);
+disc:= 9;
+end;
+
+procedure TForm1.Salir1Click(Sender: TObject);
+begin
+application.Terminate;
+end;
+
+end.
